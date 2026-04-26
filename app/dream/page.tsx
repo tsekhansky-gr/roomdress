@@ -92,7 +92,7 @@ export default function DreamPage() {
     if (res.status !== 200) {
       setError(newPhoto);
     } else {
-      setRestoredImage(newPhoto[1]);
+      setRestoredImage(newPhoto);
     }
     setTimeout(() => {
       setLoading(false);
