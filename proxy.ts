@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
-import { decrypt } from "@/app/lib/session";
+import { decryptForProxy } from "@/app/lib/session-proxy";
 
 const protectedRoutes = ["/dashboard"];
 const publicRoutes = ["/auth/login", "/"];
@@ -11,7 +11,7 @@ export async function proxy(req: NextRequest) {
   const isPublic = publicRoutes.includes(path);
 
   const cookie = req.cookies.get("session")?.value;
-  const session = await decrypt(cookie);
+  const session = await decryptForProxy(cookie);
 
   if (isProtected && !session?.userId) {
     return NextResponse.redirect(new URL("/auth/login", req.nextUrl));
