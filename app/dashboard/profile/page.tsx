@@ -4,6 +4,7 @@ import { verifySession } from "@/app/lib/dal";
 import { db } from "@/app/lib/db";
 import { logout } from "@/app/actions/auth";
 import { NameForm } from "./_components/name-form";
+import { CityForm } from "./_components/city-form";
 
 export const metadata: Metadata = {
   title: "Профиль",
@@ -35,9 +36,9 @@ async function ProfileData() {
           <span className="text-xs text-zinc-500 uppercase tracking-wide">Email</span>
           <span className="text-sm">{user?.email}</span>
         </div>
-        <div className="flex flex-col gap-1">
+        <div className="flex flex-col gap-2">
           <span className="text-xs text-zinc-500 uppercase tracking-wide">Город</span>
-          <span className="text-sm">{user?.city ?? "—"}</span>
+          <CityForm currentCity={user?.city ?? null} />
         </div>
         <div className="flex flex-col gap-1">
           <span className="text-xs text-zinc-500 uppercase tracking-wide">Аккаунт создан</span>
