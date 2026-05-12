@@ -7,6 +7,7 @@ const links = [
   { href: "/dashboard", label: "Обзор" },
   { href: "/dashboard/projects", label: "Проекты" },
   { href: "/dashboard/settings", label: "Настройки" },
+  { href: "/dashboard/profile", label: "Профиль" },
 ];
 
 export function NavLinks() {
