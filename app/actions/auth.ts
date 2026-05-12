@@ -14,6 +14,7 @@ const LoginSchema = z.object({
 
 const SignupSchema = z.object({
   name: z.string().min(2, { error: "Имя должно быть не менее 2 символов." }).trim(),
+  city: z.string().min(2, { error: "Укажите город." }).trim(),
   email: z.email({ error: "Введите корректный email." }),
   password: z.string().min(8, { error: "Пароль должен быть не менее 8 символов." }),
 });
@@ -48,6 +49,7 @@ export async function login(_state: AuthState, formData: FormData): Promise<Auth
 export async function signup(_state: AuthState, formData: FormData): Promise<AuthState> {
   const validated = SignupSchema.safeParse({
     name: formData.get("name"),
+    city: formData.get("city"),
     email: formData.get("email"),
     password: formData.get("password"),
   });
@@ -57,7 +59,7 @@ export async function signup(_state: AuthState, formData: FormData): Promise<Aut
     return { error: Object.values(errors).flat()[0] as string };
   }
 
-  const { name, email, password } = validated.data;
+  const { name, city, email, password } = validated.data;
 
   const existing = await db.user.findUnique({ where: { email } });
   if (existing) {
@@ -65,7 +67,7 @@ export async function signup(_state: AuthState, formData: FormData): Promise<Aut
   }
 
   const hashed = await bcrypt.hash(password, 10);
-  const user = await db.user.create({ data: { name, email, password: hashed } });
+  const user = await db.user.create({ data: { name, city, email, password: hashed } });
 
   await createSession(user.id);
   redirect("/dashboard");

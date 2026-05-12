@@ -13,17 +13,44 @@ export function SignupForm() {
   );
 
   return (
-    <form action={action} className="flex flex-col gap-4">
-      <input type="text" name="name" placeholder="Имя" required className={inputCls} />
-      <input type="email" name="email" placeholder="Email" required className={inputCls} />
-      <input type="password" name="password" placeholder="Пароль (мин. 8 символов)" required className={inputCls} />
+    <form action={action} className="flex flex-col gap-3">
+      <div className="flex gap-3">
+        <input
+          type="text"
+          name="name"
+          placeholder="Имя"
+          required
+          className={inputCls}
+        />
+        <input
+          type="text"
+          name="city"
+          placeholder="Город"
+          required
+          className={inputCls}
+        />
+      </div>
+      <input
+        type="email"
+        name="email"
+        placeholder="Email"
+        required
+        className={inputCls}
+      />
+      <input
+        type="password"
+        name="password"
+        placeholder="Пароль (мин. 8 символов)"
+        required
+        className={inputCls}
+      />
       {state?.error && (
         <p className="text-sm text-red-500">{state.error}</p>
       )}
       <button
         type="submit"
         disabled={pending}
-        className="rounded-full bg-foreground text-background px-6 py-2.5 text-sm font-medium transition-colors hover:opacity-80 disabled:opacity-50"
+        className="rounded-full bg-foreground text-background px-6 py-2.5 text-sm font-medium transition-colors hover:opacity-80 disabled:opacity-50 mt-1"
       >
         {pending ? "Регистрация..." : "Создать аккаунт"}
       </button>
