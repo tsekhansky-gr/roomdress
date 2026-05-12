@@ -1,21 +1,22 @@
 "use client";
 import { useActionState } from "react";
 import Link from "next/link";
-import { login, type AuthState } from "@/app/actions/auth";
+import { signup, type AuthState } from "@/app/actions/auth";
 
 const inputCls =
   "rounded-lg border border-black/10 dark:border-white/15 bg-transparent px-4 py-2.5 text-sm outline-none focus:ring-2 focus:ring-foreground/20 w-full";
 
-export function LoginForm() {
+export function SignupForm() {
   const [state, action, pending] = useActionState<AuthState, FormData>(
-    login,
+    signup,
     undefined
   );
 
   return (
     <form action={action} className="flex flex-col gap-4">
+      <input type="text" name="name" placeholder="Имя" required className={inputCls} />
       <input type="email" name="email" placeholder="Email" required className={inputCls} />
-      <input type="password" name="password" placeholder="Пароль" required className={inputCls} />
+      <input type="password" name="password" placeholder="Пароль (мин. 8 символов)" required className={inputCls} />
       {state?.error && (
         <p className="text-sm text-red-500">{state.error}</p>
       )}
@@ -24,12 +25,12 @@ export function LoginForm() {
         disabled={pending}
         className="rounded-full bg-foreground text-background px-6 py-2.5 text-sm font-medium transition-colors hover:opacity-80 disabled:opacity-50"
       >
-        {pending ? "Вход..." : "Войти"}
+        {pending ? "Регистрация..." : "Создать аккаунт"}
       </button>
       <p className="text-center text-sm text-zinc-500">
-        Нет аккаунта?{" "}
-        <Link href="/auth/signup" className="text-foreground underline underline-offset-2">
-          Зарегистрироваться
+        Уже есть аккаунт?{" "}
+        <Link href="/auth/login" className="text-foreground underline underline-offset-2">
+          Войти
         </Link>
       </p>
     </form>

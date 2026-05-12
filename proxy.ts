@@ -3,7 +3,7 @@ import type { NextRequest } from "next/server";
 import { decryptForProxy } from "@/app/lib/session-proxy";
 
 const protectedRoutes = ["/dashboard"];
-const publicRoutes = ["/auth/login", "/"];
+const publicRoutes = ["/auth/login", "/auth/signup", "/"];
 
 export async function proxy(req: NextRequest) {
   const path = req.nextUrl.pathname;
